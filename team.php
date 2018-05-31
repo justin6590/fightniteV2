@@ -2,7 +2,12 @@
 // Include config file
 require_once 'config.php';
 include 'nav.php';
- 
+
+// If session variable is not set it will redirect to login page
+if(isset($_SESSION['username']) != ''){
+  header("location: login_page.php");
+  exit;
+}
 // Define variables and initialize with empty values
 $teamname = "";
 $teamname_err = "";
@@ -12,17 +17,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Validate teamname
     if(empty(trim($_POST["teamname"]))){
-        $username_err = "Please enter a teamname.";
+        $teamname_err = "Please enter a teamname.";
     } else{
         // Prepare a select statement
         $sql = "SELECT id FROM teams WHERE name = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            mysqli_stmt_bind_param($stmt, "s", $param_teamname);
             
             // Set parameters
-            $param_username = trim($_POST["username"]);
+            $param_teamname = trim($_POST["teamname"]);
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -30,9 +35,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_store_result($stmt);
                 
                 if(mysqli_stmt_num_rows($stmt) == 1){
-                    $username_err = "This is already a team.";
+                    $teamname_err = "This is already a team.";
                 } else{
-                    $username = trim($_POST["username"]);
+                    $teamname = trim($_POST["teamname"]);
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -50,8 +55,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $sql = "INSERT INTO teams (name) VALUES (?)";
          
         if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_teamname);
+            //  ind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_teamname);
             
             // Set parameters
             $param_teamname = $teamname;

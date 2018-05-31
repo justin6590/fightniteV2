@@ -9,7 +9,7 @@ $errors   = array();
 $db = mysqli_connect('localhost', 'root', '', 'fightnite');
 
 // Register the team
-if (isset($_POST['reg_team'])) {
+if (isset($_POST['teamname'])) {
   // receive all input values from the form
   $teamname   = mysqli_real_escape_string($db, $_POST['teamname']);
 
