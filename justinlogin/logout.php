@@ -1,6 +1,15 @@
 <?php
 include('nav.php');
+// Initialize the session
 session_start();
-unset($_SESSION["username"]);  // where $_SESSION["nome"] is your own variable. if you do not have one use only this as follow **session_unset();**
-header("Location: index.php");
+ 
+// Unset all of the session variables
+$_SESSION = array();
+ 
+// Destroy the session.
+session_destroy();
+ 
+// Redirect to login page
+header("location: /login.php");
+exit;
 ?>

@@ -1,20 +1,18 @@
 <?php 
 include('server.php');
-include('nav.php'); 
 
 // If session variable is not set it will redirect to login page
 session_start(); 
-
 if (!isset($_SESSION['username'])) {
     $_SESSION['msg'] = "You must log in first";
     header('location: login.php');
-}
-
+    }
 ?>
 <html lang="en">
 <head>
     <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
     <center>
