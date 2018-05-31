@@ -1,11 +1,13 @@
 <?php
 include 'nav.php';
-// Initialize the session
+############### Code
+
+
+// Check if session is not registered, redirect back to main page. 
+// Put this code in first line of web page. 
 session_start();
-// If session variable is not set it will redirect to login page
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-  header("location: login.php");
-  exit;
+if(!session_is_registered(myusername)){
+header("location:login_page.php");
 }
 ?>
  
@@ -20,7 +22,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 </head>
 <body>
     <div class="page-header">
-        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Welcome to our site.</h1>
+        <h1>Hi, </b>. Welcome to our site.</h1>
     </div>
     <p><a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a></p>
     <p><a href="team.php" class="btn btn-success">Create Team</a></p>
